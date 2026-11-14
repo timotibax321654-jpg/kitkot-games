@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kitkot Games - Вход</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Вход</h1>
+        <p>С возвращением!</p>
+        
+        <div id="error-box" class="error-msg"></div>
+
+        <form id="login-form">
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" id="email" required placeholder="you@mail.com">
+            </div>
+            <div class="form-group">
+                <label>Пароль</label>
+                <input type="password" id="password" required placeholder="******">
+            </div>
+            <button type="submit" class="btn btn-primary">Войти</button>
+        </form>
+
+        <span class="link-text">Нет аккаунта? <a href="register.html">Зарегистрироваться</a></span>
+        <span class="link-text"><a href="index.html">← На главную</a></span>
+    </div>
+
+    <script src="login.js"></script>
+</body>
+</html>

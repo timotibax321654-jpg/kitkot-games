@@ -6,9 +6,33 @@ const bcrypt = require('bcryptjs');
 const router = express.Router();
 
 // 1. READ: получить всех пользователей
+// 1. READ: получить всех пользователей (с поиском и сортировкой)
 router.get('/', async (req, res) => {
     try {
-        const result = await pool.query('SELECT id, username, email, created_at FROM users ORDER BY id');
+        // Получаем параметры из строки запроса (например: /api/users?search=test&sort=username_asc)
+        const { search, sort } = req.query;
+        
+        let query = 'SELECT id, username, email, created_at FROM users';
+        let values = [];
+
+        // Если есть поиск — добавляем фильтр по нику или почте
+        if (search) {
+            query += ' WHERE username ILIKE $1 OR email ILIKE $1';
+            values.push(`%${search}%`); // % означает "содержит"
+        }
+
+        // Обработка сортировки
+        if (sort === 'username_asc') {
+            query += ' ORDER BY username ASC';
+        } else if (sort === 'username_desc') {
+            query += ' ORDER BY username DESC';
+        } else if (sort === 'date_asc') {
+            query += ' ORDER BY created_at ASC';
+        } else {
+            query += ' ORDER BY created_at DESC'; // По умолчанию: новые сначала
+        }
+
+        const result = await pool.query(query, values);
         res.json(result.rows);
     } catch (err) {
         res.status(500).json({ error: err.message });

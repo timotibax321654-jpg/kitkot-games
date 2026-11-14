@@ -6,12 +6,17 @@ require('dotenv').config();
 const app = express();
 app.use(cors());
 app.use(express.json());
+const path = require('path');
+app.use(express.static(path.join(__dirname, '../client')));
 
 const userRoutes = require('./routes/users');
 app.use('/api/users', userRoutes);
 
 const authRoutes = require('./routes/auth');
 app.use('/api/auth', authRoutes);
+
+const sessionRoutes = require('./routes/sessions');
+app.use('/api/sessions', sessionRoutes);
 
 app.get('/', (req, res) => {
     res.json({ message: 'Kitkot Games API is running!', version: '0.1.0' });

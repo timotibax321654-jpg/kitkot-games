@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kitkot Games - Личный кабинет</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container" style="max-width: 600px; text-align: left;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <h2>Личный кабинет</h2>
+            <button id="logout-btn" class="btn" style="width: auto; padding: 8px 16px; background: #e74c3c;">Выйти</button>
+        </div>
+
+        <div id="user-info" style="background: #0f3460; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+            <p>Загрузка данных...</p>
+        </div>
+
+        <!-- Блок истории игр -->
+<h3 style="margin-top: 30px; margin-bottom: 15px;">Мои последние игры</h3>
+<div id="history-container" style="background: #0f3460; padding: 15px; border-radius: 8px; margin-bottom: 30px;">
+    <p>Загрузка истории...</p>
+</div>
+
+        <h3 style="margin-bottom: 15px;">Смена пароля</h3>
+        <div id="pass-error" class="error-msg"></div>
+        <div id="pass-success" style="color: #2ecc71; font-size: 14px; margin-bottom: 15px; min-height: 20px;"></div>
+        
+        <form id="password-form">
+            <div class="form-group">
+                <label>Старый пароль</label>
+                <input type="password" id="old-password" required>
+            </div>
+            <div class="form-group">
+                <label>Новый пароль (мин. 6 символов)</label>
+                <input type="password" id="new-password" required>
+            </div>
+            <button type="submit" class="btn btn-success" style="width: auto;">Изменить пароль</button>
+        </form>
+    </div>
+
+    <script src="profile.js"></script>
+</body>
+</html>

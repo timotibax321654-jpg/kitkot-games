@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kitkot Games - Таблица лидеров</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container" style="max-width: 800px; text-align: left;">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h2>🏆 Таблица лидеров</h2>
+            <a href="profile.html" class="btn" style="width: auto; text-decoration: none; background: #0f3460;">В кабинет</a>
+        </div>
+
+        <!-- Панель управления: Поиск и Сортировка -->
+        <div style="display: flex; gap: 10px; margin-bottom: 20px; background: #0f3460; padding: 15px; border-radius: 8px;">
+            <input type="text" id="search-input" placeholder="Поиск по нику..." style="flex: 1; padding: 10px; border-radius: 5px; border: none;">
+            
+            <select id="sort-select" style="padding: 10px; border-radius: 5px; border: none; background: #1a1a2e; color: #fff;">
+                <option value="date_desc">Новые сначала</option>
+                <option value="date_asc">Старые сначала</option>
+                <option value="username_asc">По алфавиту (А-Я)</option>
+                <option value="username_desc">По алфавиту (Я-А)</option>
+            </select>
+            
+            <button id="search-btn" class="btn btn-primary" style="width: auto; margin: 0;">Найти</button>
+        </div>
+        <!-- Сама таблица -->
+        <table style="width: 100%; border-collapse: collapse; background: #16213e; border-radius: 8px; overflow: hidden;">
+            <thead style="background: #0f3460;">
+                <tr>
+                    <th style="padding: 12px; text-align: left;">ID</th>
+                    <th style="padding: 12px; text-align: left;">Игрок</th>
+                    <th style="padding: 12px; text-align: left;">Дата регистрации</th>
+                </tr>
+            </thead>
+            <tbody id="table-body">
+                <tr><td colspan="3" style="padding: 12px; text-align: center;">Загрузка...</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script src="leaderboard.js"></script>
+</body>
+</html>
