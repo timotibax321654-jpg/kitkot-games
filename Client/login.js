@@ -1,11 +1,16 @@
 document.getElementById('login-form').addEventListener('submit', async (e) => {
-    e.preventDefault();
+    e.preventDefault(); // Останавливаем перезагрузку страницы
 
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
-    const errorBox = document.getElementById('error-box');
+    
+    // Находим кнопку отправки, чтобы менять её состояние
+    const submitBtn = e.target.querySelector('button[type="submit"]');
+    const originalBtnText = submitBtn.textContent;
 
-    errorBox.textContent = '';
+    // Меняем текст кнопки на время загрузки
+    submitBtn.textContent = 'Загрузка...';
+    submitBtn.disabled = true;
 
     try {
         const response = await fetch('/api/auth/login', {
@@ -17,13 +22,27 @@ document.getElementById('login-form').addEventListener('submit', async (e) => {
         const data = await response.json();
 
         if (response.ok) {
-            // Сохраняем токен и переходим в профиль
+            // Сохраняем токен
             localStorage.setItem('token', data.token);
-            window.location.href = 'profile.html';
+            
+            // Показываем красивое уведомление об успехе
+            showToast('Вход выполнен успешно!', 'success');
+            
+            // Задерживаем переход на 1 секунду, чтобы пользователь успел увидеть уведомление
+            setTimeout(() => {
+                window.location.href = 'profile.html';
+            }, 1000);
         } else {
-            errorBox.textContent = data.error;
+            // Показываем красивое уведомление об ошибке
+            showToast(data.error, 'error');
+            
+            // Возвращаем кнопку в исходное состояние
+            submitBtn.textContent = originalBtnText;
+            submitBtn.disabled = false;
         }
     } catch (err) {
-        errorBox.textContent = 'Ошибка подключения к серверу';
+        showToast('Ошибка подключения к серверу', 'error');
+        submitBtn.textContent = originalBtnText;
+        submitBtn.disabled = false;
     }
 });
