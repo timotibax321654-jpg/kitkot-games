@@ -1,4 +1,6 @@
 const express = require('express');
+const morgan = require('morgan');
+const logger = require('./utils/logger');
 const cors = require('cors');
 const pool = require('./db');
 require('dotenv').config();
@@ -6,6 +8,7 @@ require('dotenv').config();
 const app = express();
 app.use(cors());
 app.use(express.json());
+app.use(morgan('dev'));
 const path = require('path');
 app.use(express.static(path.join(__dirname, '../client')));
 
@@ -35,7 +38,23 @@ app.get('/api/db-test', async (req, res) => {
     }
 });
 
+// Глобальный обработчик ошибок
+app.use((err, req, res, next) => {
+    logger.error(`${err.status || 500} - ${err.message} - ${req.originalUrl} - ${req.method} - ${req.ip}`);
+    res.status(err.status || 500).json({ error: 'Внутренняя ошибка сервера' });
+});
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Сервер запущен: http://localhost:${PORT}`);
+});
+
+// Обработка непредвиденных ошибок
+process.on('uncaughtException', (err) => {
+    logger.error('НЕОЖИДАННАЯ ОШИБКА: ' + err.message);
+    process.exit(1);
+});
+
+process.on('unhandledRejection', (reason, promise) => {
+    logger.error('НЕОБРАБОТАННЫЙ PROMISE: ' + reason);
 });
