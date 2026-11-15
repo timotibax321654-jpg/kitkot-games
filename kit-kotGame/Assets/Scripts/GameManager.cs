@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour
         // ��������� ����� �� ������
         if (scoreText != null)
         {
-            scoreText.text = "����: " + score;
+            scoreText.text = "Score: " + score;
         }
 
         Debug.Log($"�����: {coinsCollected}, ����: {score}");
